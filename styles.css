@@ -1,0 +1,95 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Jost", sans-serif;
+}
+:root {
+  --bgcolor: #18191a;
+  --primarycard: #242526;
+  --hovercard: #3a3b3c;
+  --primarytext: #e4e6eb;
+  --secondarytext: #b0b3b8;
+  --accentcolor: #3700b3;
+  --errorcolor: #cf6679;
+  --formHeight: calc(100vh - 74px);
+}
+
+main {
+  min-height: 100vh;
+  min-width: 100vw;
+  background: #18191a;
+  display: grid;
+  place-items: center;
+  grid-template-areas:
+    "topbar   topbar    topbar"
+    "menubar  submitbtn responsebar"
+    "forms    forms     output"
+    "tabbar   tabbar    output"
+    "tabfield tabfield  output";
+  grid-template-columns: 8fr minmax(3px, 2fr) 10fr;
+  grid-template-rows: 26px 24px auto 24px auto;
+  align-items: stretch;
+  justify-content: stretch;
+}
+main > * {
+  justify-self: stretch;
+  align-self: stretch;
+  display: flex;
+  border: 0.05px solid rgba(219, 219, 219, 0.3);
+}
+header {
+  grid-area: topbar;
+  background: #242526;
+  color: var(--primarytext);
+  letter-spacing: 4px;
+  font-weight: bolder;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+nav {
+  background: #242526;
+  color: var(--secondarytext);
+  font-size: smaller;
+  font-weight: 300;
+}
+.menubar {
+  grid-area: menubar;
+}
+.submitbtn {
+  grid-area: submitbtn;
+}
+.responsebar {
+  grid-area: responsebar;
+  align-items: center;
+  justify-content: start;
+}
+.responsebar > * {
+  margin-left: 7px;
+}
+.forms {
+  grid-area: forms;
+  height: calc(var(--formHeight) / 4);
+}
+.formfield {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.output {
+  grid-area: output;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.tabbar {
+  grid-area: tabbar;
+}
+
+.tabfield {
+  grid-area: tabfield;
+  height: calc(var(--formHeight) * 0.75);
+}

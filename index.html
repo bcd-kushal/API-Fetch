@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PostUncle</title>
+    <link rel="stylesheet" href="./styles.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jost&family=Roboto+Mono:wght@300&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <script src="./script.js"></script>
+    <main>
+      <header>
+        <div>POSTUNCLE</div>
+      </header>
+
+      <nav class="menubar">Query Parameters</nav>
+
+      <button class="submitbtn" onclick="submitForm()">Send</button>
+
+      <nav class="responsebar">
+        <div>Response</div>
+      </nav>
+
+      <article
+        style="align-items: center; justify-content: center"
+        class="forms"
+      >
+        <form action="" method="get" class="formfield">
+          <div data-dropdown class="dropdown">
+            <select data-req-type name="httpRequestType" id="dataReqType">
+              <option value="GET" selected>GET</option>
+              <option value="POST">POST</option>
+              <option value="PUT">PUT</option>
+              <option value="PATCH">PATCH</option>
+              <option value="DELETE">DELETE</option>
+            </select>
+          </div>
+
+          <!-- URL INSERTOR -->
+          <div class="urlbar">
+            <input
+              type="url"
+              data-url
+              name="urlBox"
+              id="urlBox"
+              placeholder="https://example.com"
+              required
+            />
+          </div>
+
+          <div data-option-adder class="optionAdder">C</div>
+
+          <div>
+            <button
+              type="submit"
+              value="Submit"
+              onclick=" if(!confirm('Submit details?')) 
+                            return false; 
+                        else 
+                            return true;"
+            >
+              Submit
+            </button>
+          </div>
+        </form>
+      </article>
+
+      <nav class="tabbar">
+        <div>Tabs goes here</div>
+      </nav>
+
+      <article class="tabfield">
+        <div></div>
+      </article>
+
+      <article class="output"></article>
+    </main>
+  </body>
+</html>
