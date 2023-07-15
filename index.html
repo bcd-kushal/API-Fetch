@@ -12,17 +12,23 @@
       href="https://fonts.googleapis.com/css2?family=Jost&family=Roboto+Mono:wght@300&display=swap"
       rel="stylesheet"
     />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
   </head>
   <body>
-    <script src="./script.js"></script>
     <main>
       <header>
         <div>POSTUNCLE</div>
       </header>
 
-      <nav class="menubar">Query Parameters</nav>
+      <nav class="menubar"></nav>
 
-      <button class="submitbtn" onclick="submitForm()">Send</button>
+      <button class="submitbtn" onclick="submitForm()">
+        <div>SEND</div>
+      </button>
 
       <nav class="responsebar">
         <div>Response</div>
@@ -32,55 +38,113 @@
         style="align-items: center; justify-content: center"
         class="forms"
       >
-        <form action="" method="get" class="formfield">
-          <div data-dropdown class="dropdown">
+        <form data-form action="" method="get" class="formfield">
+          <div data-request-method class="dropdown">
             <select data-req-type name="httpRequestType" id="dataReqType">
-              <option value="GET" selected>GET</option>
-              <option value="POST">POST</option>
-              <option value="PUT">PUT</option>
-              <option value="PATCH">PATCH</option>
-              <option value="DELETE">DELETE</option>
+              <option value="get" selected>GET</option>
+              <option value="post">POST</option>
+              <option value="put">PUT</option>
+              <option value="patch">PATCH</option>
+              <option value="delete">DELETE</option>
             </select>
           </div>
 
           <!-- URL INSERTOR -->
           <div class="urlbar">
             <input
-              type="url"
               data-url
+              type="url"
               name="urlBox"
               id="urlBox"
+              spellcheck="false"
               placeholder="https://example.com"
               required
             />
-          </div>
-
-          <div data-option-adder class="optionAdder">C</div>
-
-          <div>
-            <button
-              type="submit"
-              value="Submit"
-              onclick=" if(!confirm('Submit details?')) 
-                            return false; 
-                        else 
-                            return true;"
-            >
-              Submit
-            </button>
           </div>
         </form>
       </article>
 
       <nav class="tabbar">
-        <div>Tabs goes here</div>
+        <section
+          data-query-params-tab
+          class="queryParamsTab"
+          onclick="toggleTabs(1)"
+          onmouseover="this.style.fontWeight ='bold';"
+          onmouseout="this.style.fontWeight =(this.style.backgroundColor=='rgb(58, 59, 60)')?'bold':'normal';"
+        >
+          QUERIES
+        </section>
+        <section
+          data-headers-tab
+          class="HeadersTab"
+          onclick="toggleTabs(2)"
+          onmouseover="this.style.fontWeight ='bold';"
+          onmouseout="this.style.fontWeight =(this.style.backgroundColor=='rgb(58, 59, 60)')?'bold':'normal';"
+        >
+          HEADERS
+        </section>
+        <section
+          data-json-tab
+          class="JSONTab"
+          onclick="toggleTabs(3)"
+          onmouseover="this.style.fontWeight ='bold';"
+          onmouseout="this.style.fontWeight =(this.style.backgroundColor=='rgb(58, 59, 60)')?'bold':'normal';"
+        >
+          JSON
+        </section>
       </nav>
 
       <article class="tabfield">
-        <div></div>
+        <div class="queryField">
+          <div class="addField">
+            <button type="button" class="addbtn" onclick="addParamField()">
+              ADD
+            </button>
+          </div>
+
+          <div class="keyValueField"></div>
+        </div>
+
+        <div class="headerField">
+          <div class="addField">
+            <button type="button" class="addbtn" onclick="addHeaderField()">
+              ADD
+            </button>
+          </div>
+
+          <div class="keyValueField"></div>
+        </div>
+        <div class="jsonField">json</div>
       </article>
 
       <article class="output"></article>
     </main>
+
+    <template data-key-value-template>
+      <div data-key-value-pair class="keyValPair">
+        <input
+          data-key
+          type="text"
+          class="keyField"
+          spellcheck="false"
+          placeholder="Key"
+        />
+        <input
+          data-value
+          type="text"
+          class="valueField"
+          spellcheck="false"
+          placeholder="Value"
+        />
+        <button data-remove-btn class="btnRemove" type="button">
+          <i
+            class="fa fa-trash-o trashIcon"
+            style="font-size: 25px; color: #cf6679"
+          ></i>
+        </button>
+      </div>
+    </template>
+
+    <script src="./script.js"></script>
   </body>
 </html>

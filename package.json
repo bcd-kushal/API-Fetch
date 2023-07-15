@@ -2,7 +2,8 @@
   "name": "postman_self_take",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "type": "module",
+  "main": "index.html",
   "scripts": {
     "start": "snowpack dev"
   },
