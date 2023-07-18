@@ -1,10 +1,3 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Jost", sans-serif;
-  font-size: 108%;
-}
 :root {
   --bgcolor: #18191a;
   --primarycard: #242526;
@@ -17,6 +10,15 @@
   --red: #ab0032;
   --redBorder: #cf6679;
 }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Jost", sans-serif;
+  font-size: 108%;
+  color: var(--primarytext);
+}
+
 ::-webkit-scrollbar {
   display: none;
 }
@@ -56,7 +58,7 @@ header {
   justify-content: center;
 }
 nav {
-  background: #242526;
+  background: var(--primarycard);
   color: var(--secondarytext);
   font-weight: 300;
 }
@@ -87,7 +89,7 @@ nav {
 .responsebar {
   grid-area: responsebar;
   align-items: center;
-  justify-content: start;
+  justify-content: center;
 }
 .responsebar > * {
   margin-left: 7px;
@@ -128,7 +130,7 @@ nav {
   width: 75%;
 }
 .urlbar::before {
-  content: "Link";
+  content: "API Endpoint";
   color: var(--secondarytext);
   font-weight: bold;
   position: absolute;
@@ -142,8 +144,9 @@ nav {
 .output {
   grid-area: output;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 20px;
 }
 .tabbar {
   grid-area: tabbar;
@@ -207,17 +210,26 @@ input {
   grid-area: query;
   background: var(--hovercard);
   font-weight: bold;
+  transition: 0.2s;
 }
 .HeadersTab {
   grid-area: headers;
+  transition: 0.2s;
 }
 .JSONTab {
   grid-area: json;
+  transition: 0.2s;
 }
 .queryParamsTab:hover,
 .HeadersTab:hover,
 .JSONTab:hover {
   font-weight: bold;
+  transition: 0.2s;
+  letter-spacing: 1px;
+}
+.headerWrapper,
+.jsonWrapper {
+  display: none;
 }
 .queryField,
 .headerField {
@@ -296,4 +308,108 @@ input {
 .btnRemove:hover > * {
   filter: grayscale(1) brightness(10%);
   transition: 0.4s;
+}
+.responseWrapper {
+  display: none;
+  width: 100%;
+  min-height: 40%;
+  height: auto;
+  border: 1.2px solid rgba(219, 219, 219, 0.4);
+}
+.responseBox {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  font-size: 92%;
+  grid-template-areas:
+    "status     status"
+    "bodytab    headertab"
+    "ressec     ressec";
+  align-items: stretch;
+  justify-items: stretch;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 50px 35px auto;
+}
+.statusbar {
+  grid-area: status;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.statusbar > * {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 15px;
+  border: 1.2px solid rgba(219, 219, 219, 0.3);
+}
+.bodyResponseTab {
+  grid-area: bodytab;
+  background: var(--primarycard);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: 1.2px solid rgba(219, 219, 219, 0.3);
+  transition: 0.5s;
+  background: var(--hovercard);
+  font-weight: bold;
+}
+.headerResponseTab {
+  grid-area: headertab;
+  background: var(--primarycard);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: 1.2px solid rgba(219, 219, 219, 0.3);
+  transition: 0.2s;
+}
+.bodyResponseTab:hover,
+.headerResponseTab:hover {
+  letter-spacing: 1px;
+  transition: 0.2s;
+}
+.answerContainer {
+  grid-area: ressec;
+  height: inherit;
+  display: grid;
+  max-height: 60vh;
+}
+
+.answerContainer > * {
+  position: relative;
+  grid-row-start: 1;
+  grid-column-start: 1;
+  display: block;
+}
+.bodyAnsContainer,
+.bodyAnswer,
+.headerAnsContainer,
+.headerAnswer {
+  height: 100%;
+  width: 100%;
+  color: var(--primarytext);
+  padding: 10px;
+}
+.headerAnsContainer {
+  padding: 0;
+  display: none;
+}
+.headerAnswer {
+  height: auto;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  align-content: stretch;
+  justify-content: stretch;
+  font-size: 92%;
+}
+.headerAnswer > * {
+  border: 1.2px solid rgba(219, 219, 219, 0.3);
+  min-height: 45px;
+  padding: 10px;
+}
+
+.bodyAnsContainer {
+  overflow: scroll;
 }

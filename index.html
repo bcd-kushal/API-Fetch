@@ -26,12 +26,12 @@
 
       <nav class="menubar"></nav>
 
-      <button class="submitbtn" onclick="submitForm()">
+      <button data-send-btn class="submitbtn">
         <div>SEND</div>
       </button>
 
       <nav class="responsebar">
-        <div>Response</div>
+        <div>RESPONSE</div>
       </nav>
 
       <article
@@ -65,59 +65,79 @@
       </article>
 
       <nav class="tabbar">
-        <section
-          data-query-params-tab
-          class="queryParamsTab"
-          onclick="toggleTabs(1)"
-          onmouseover="this.style.fontWeight ='bold';"
-          onmouseout="this.style.fontWeight =(this.style.backgroundColor=='rgb(58, 59, 60)')?'bold':'normal';"
-        >
-          QUERIES
-        </section>
-        <section
-          data-headers-tab
-          class="HeadersTab"
-          onclick="toggleTabs(2)"
-          onmouseover="this.style.fontWeight ='bold';"
-          onmouseout="this.style.fontWeight =(this.style.backgroundColor=='rgb(58, 59, 60)')?'bold':'normal';"
-        >
-          HEADERS
-        </section>
-        <section
-          data-json-tab
-          class="JSONTab"
-          onclick="toggleTabs(3)"
-          onmouseover="this.style.fontWeight ='bold';"
-          onmouseout="this.style.fontWeight =(this.style.backgroundColor=='rgb(58, 59, 60)')?'bold':'normal';"
-        >
-          JSON
-        </section>
+        <section data-query-params-tab class="queryParamsTab">Queries</section>
+        <section data-headers-tab class="HeadersTab">Headers</section>
+        <section data-json-tab class="JSONTab">JSON</section>
       </nav>
 
       <article class="tabfield">
-        <div class="queryField">
-          <div class="addField">
-            <button type="button" class="addbtn" onclick="addParamField()">
-              ADD
-            </button>
-          </div>
+        <div class="queryWrapper">
+          <div class="queryField">
+            <div class="addField">
+              <button
+                data-add-query-params-field-btn
+                type="button"
+                class="addbtn"
+              >
+                ADD
+              </button>
+            </div>
 
-          <div class="keyValueField"></div>
+            <div class="keyValueField"></div>
+          </div>
         </div>
 
-        <div class="headerField">
-          <div class="addField">
-            <button type="button" class="addbtn" onclick="addHeaderField()">
-              ADD
-            </button>
-          </div>
+        <div class="headerWrapper">
+          <div class="headerField">
+            <div class="addField">
+              <button data-add-header-field-btn type="button" class="addbtn">
+                ADD
+              </button>
+            </div>
 
-          <div class="keyValueField"></div>
+            <div class="keyValueField"></div>
+          </div>
         </div>
-        <div class="jsonField">json</div>
+
+        <div class="jsonWrapper">
+          <div data-json-field class="jsonField"></div>
+        </div>
       </article>
 
-      <article class="output"></article>
+      <article class="output">
+        <div class="responseWrapper">
+          <div class="responseBox">
+            <div class="statusbar">
+              <div>
+                Status:
+                <span style="padding: 0 5px" data-status class="status"></span>
+              </div>
+              <div>
+                Size:
+                <span style="padding: 0 5px" data-size class="size"></span>
+              </div>
+              <div>
+                Time:
+                <span style="padding: 0 5px" data-time class="time"></span>
+              </div>
+            </div>
+            <div data-body-response-tab class="bodyResponseTab">
+              <div>Body</div>
+            </div>
+            <div data-header-response-tab class="headerResponseTab">
+              <div>Headers</div>
+            </div>
+            <div class="answerContainer">
+              <div class="bodyAnsContainer">
+                <div data-res-body-field class="bodyAnswer"></div>
+              </div>
+              <div class="headerAnsContainer">
+                <div class="headerAnswer"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
     </main>
 
     <template data-key-value-template>
@@ -145,6 +165,6 @@
       </div>
     </template>
 
-    <script src="./script.js"></script>
+    <script type="module" src="./script.js"></script>
   </body>
 </html>

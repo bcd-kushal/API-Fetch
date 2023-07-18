@@ -1,19 +1,32 @@
 {
-  "name": "postman_self_take",
+  "name": "postuncle",
   "version": "1.0.0",
   "description": "",
-  "type": "module",
-  "main": "index.html",
+  "main": "codeEditor.js",
   "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "snowpack dev"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "axios": "^1.4.0"
+    "@codemirror/basic-setup": "^0.20.0",
+    "@codemirror/commands": "^0.18.3",
+    "@codemirror/lang-json": "^0.18.0",
+    "@codemirror/view": "^0.18.3",
+    "axios": "^1.4.0",
+    "pretty-bytes": "^6.1.1"
   },
   "devDependencies": {
-    "snowpack": "^3.8.8"
+    "snowpack": "^3.5.6"
+  },
+  "resolutions": {
+    "@codemirror/state":"^0.18.7",
+    "@codemirror/basic-setup": "^0.20.0",
+    "@codemirror/commands": "^0.18.3",
+    "@codemirror/lang-json": "^0.18.0",
+    "@codemirror/view": "^0.18.3",
+    "@codemirror/language":"^0.18.2"
   }
 }
