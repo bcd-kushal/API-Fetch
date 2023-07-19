@@ -1,12 +1,45 @@
-import axios from "axios";
-import prettyBytes from "pretty-bytes";
+import axios from "./_snowpack/pkg/axios.js";
+import prettyBytes from "./_snowpack/pkg/pretty-bytes.js";
+
 /* import setEditor from "./codeEditor";
 import setResponseEditor from "./responseCodeEditor"; */
 
 //const { reqJSONField, resJSONField } = setEditor();
 //const { reqJSON } = setEditor();
 //const { updateResponseJSONField } = setResponseEditor();
+//import { Ace, InlineAutocomplete } from "ace-builds";
+//let isTrue = false;
+//let isSwitcherToggling = false;
+//console.log("1.", currentThemeJSONField);
 
+
+let currentThemeJSONField = "ace/theme/twilight";
+
+const query_tab = document.getElementsByClassName('queryParamsTab')[0];
+const headers_tab = document.getElementsByClassName('HeadersTab')[0];
+const json_tab = document.getElementsByClassName('JSONTab')[0];
+
+let hoverTabColor = "#3a3b3c";
+let TabColor = "#242526";
+
+const sendBtn = document.querySelector('[data-send-btn]');
+
+if (sendBtn.style.color != ('#e3e6eb' || '#b0b3b8'))
+    sendBtn.style.color = '#b0b3b8';
+
+
+// json editor field --------------------------------------------------
+let text_input = {
+
+};
+text_input = JSON.stringify(text_input, null, 4).replace(/{\s*/g, '{\n\n');
+document.getElementById("editor").innerHTML = text_input;
+const ace_editor = ace.edit("editor");
+ace_editor.getSession().setMode("ace/mode/json");
+ace_editor.setTheme("ace/theme/twilight");
+ace_editor.getSession().setTabSize(4);
+ace_editor.getSession().setUseWrapMode(true);
+//---------------------------------------------------------------------
 
 
 // functions to change tabs -----------------------------------------
@@ -28,7 +61,6 @@ document.querySelector('[data-json-tab]').addEventListener('click', () => {
 //---------------------------------------------------------------------
 
 
-
 // functions to add key:value fields ----------------------------------
 const field_index = {
     '[data-add-query-params-field-btn]': 0,
@@ -44,6 +76,7 @@ document.querySelector('[data-add-header-field-btn]').addEventListener('click', 
     HeadersContainer.appendChild(createKeyValuePair());
 })
 //---------------------------------------------------------------------
+
 
 
 
@@ -63,17 +96,8 @@ document.querySelector('[data-header-response-tab]').addEventListener('click', (
 
 
 
-
-
-// all utility functions ----------------------------------------------
+// tab functioning ----------------------------------------------------
 function toggleTabs(num) {
-    const query_tab = document.getElementsByClassName('queryParamsTab')[0];
-    const headers_tab = document.getElementsByClassName('HeadersTab')[0];
-    const json_tab = document.getElementsByClassName('JSONTab')[0];
-
-    const hoverTabColor = "#3a3b3c";
-    const TabColor = "#242526";
-
     query_tab.style.backgroundColor = (num == 1) ? hoverTabColor : TabColor;
     headers_tab.style.backgroundColor = (num == 2) ? hoverTabColor : TabColor;
     json_tab.style.backgroundColor = (num == 3) ? hoverTabColor : TabColor;
@@ -81,9 +105,6 @@ function toggleTabs(num) {
     query_tab.style.fontWeight = (num == 1) ? "bold" : "normal";
     headers_tab.style.fontWeight = (num == 2) ? "bold" : "normal";
     json_tab.style.fontWeight = (num == 3) ? "bold" : "normal";
-
-
-
 
 
     const query_field = document.getElementsByClassName('queryWrapper')[0];
@@ -107,14 +128,6 @@ function toggleTabs(num) {
     }
 }
 
-function createKeyValuePair() {
-    const element = document.querySelector('[data-key-value-template]').content.cloneNode(true);
-    element.querySelector('[data-remove-btn]').addEventListener('click', e => {
-        e.target.closest('[data-key-value-pair]').remove();
-    });
-    return element;
-}
-
 function toggleResponseTabs(num) {
     const bodyAnsBox = document.getElementsByClassName('bodyAnsContainer')[0];
     const headerAnsBox = document.getElementsByClassName('headerAnsContainer')[0];
@@ -135,17 +148,45 @@ function toggleResponseTabs(num) {
 //---------------------------------------------------------------------
 
 
-// overflow prevention ------------------------------------------------
 
+
+// append new key:val pairs -------------------------------------------
+function createKeyValuePair() {
+    const element = document.querySelector('[data-key-value-template]').content.cloneNode(true);
+    element.querySelector('[data-remove-btn]').addEventListener('click', e => {
+        e.target.closest('[data-key-value-pair]').remove();
+    });
+    return element;
+}
+//---------------------------------------------------------------------
+function checkValidURL(url) {
+    const url_pattern = /^(ftp|http|https):\/\/[^ "]+$/;
+    return url_pattern.test(url);
+}
+
+function convertTime(time_in_ms) {
+    if (time_in_ms < 1000)
+        return String(time_in_ms) + "ms";
+    else {
+        const sec = parseInt(parseInt(time_in_ms) / 1000) || 0;
+        const ms = parseInt(time_in_ms) % 1000;
+        return ((sec == 0) ? "" : (sec + "s ")) + ms + "ms";
+    }
+}
 //---------------------------------------------------------------------
 
 
 
 
-
-document.querySelector('[data-send-btn]').addEventListener('click', () => {
+sendBtn.addEventListener('click', () => {
     const requested_url = String(document.querySelector('[data-url]').value);
     const responseShow = document.getElementsByClassName('responseWrapper')[0];
+
+    if (!checkValidURL(requested_url)) {
+        responseShow.style.display = "none";
+        alert("Malformed URL, cannot submit.");
+        return;
+    }
 
     if (!requested_url) {
         responseShow.style.display = "none";
@@ -175,6 +216,14 @@ document.querySelector('[data-send-btn]').addEventListener('click', () => {
     const params = toObjects(document.getElementsByClassName('keyValueField')[0]);
     const headers = toObjects(document.getElementsByClassName('keyValueField')[1]);
 
+    let json_data = {};
+    try {
+        json_data = JSON.parse(ace_editor.getValue() || null);
+    } catch {
+        responseShow.style.display = "none";
+        alert("JSON data is malformed.");
+        return;
+    }
 
     axios.interceptors.request.use(req => {
         req.customData = req.customData || {};
@@ -192,41 +241,53 @@ document.querySelector('[data-send-btn]').addEventListener('click', () => {
         return Promise.reject(endTime(e.response));
     })
 
+    //console.log(json_data);
 
     axios({
         url: requested_url,
         method: http_request_type,
         params: params,
-        headers: headers
+        headers: headers,
+        data: json_data
     })
-        .catch(err => err)
         .then((res) => {
             //console.log(res);
             responseShow.style.display = "block";
 
 
-            statusbar.innerHTML = res.status || "- - -";
-            timebar.innerHTML = convertTime(res.customData.time);
-            sizebar.innerHTML = prettyBytes(
-                JSON.stringify(res.headers).length + JSON.stringify(res.data).length
-            );
+            statusbar.innerHTML = res.status || "429";
+            if (statusbar.innerHTML == "429") {
+                timebar.innerHTML = "nil";
+                sizebar.innerHTML = "nil";
+                bodyAns.innerHTML = JSON.stringify({}, null, 4);
+            } else {
+                timebar.innerHTML = convertTime(res.customData.time);
+                sizebar.innerHTML = prettyBytes(
+                    JSON.stringify(res.headers).length + JSON.stringify(res.data).length
+                );
 
-            bodyAns.innerHTML = JSON.stringify(res.data);
+                bodyAns.innerHTML = JSON.stringify(res.data, null, 4);
+            }
+
+            createEditorField();
+            //const api_response = "" || res_editor.getValue();
             //resJSONField(res.data);
             updateHeadersResponseField(res.headers);
+        })
+        .catch(err => {
+            console.error("[ERROR]:", String(err));
         });
 });
 
 
-function convertTime(time_in_ms) {
-    if (time_in_ms < 1000)
-        return String(time_in_ms) + "ms";
-    else {
-        const sec = parseInt(parseInt(time_in_ms) / 1000) || 0;
-        const ms = parseInt(time_in_ms) % 1000;
-        return ((sec == 0) ? "" : (sec + "s ")) + ms + "ms";
-    }
+function createEditorField() {
+    const res_editor = ace.edit("responseEditor");
+    res_editor.getSession().setMode("ace/mode/json");
+    res_editor.setTheme(currentThemeJSONField);
+    res_editor.getSession().setTabSize(4);
+    res_editor.getSession().setUseWrapMode(true);
 }
+
 
 
 function toObjects(container) {
@@ -258,43 +319,3 @@ function updateHeadersResponseField(header) {
     });
 }
 
-/* 
-function setEditor() {
-    const jsonReqBody = document.querySelector('[data-json-field]');
-    const jsonResBody = document.querySelector('[data-res-body-field]');
-
-    const extensions = [
-        basicSetup,
-        keymap.of([defaultTabBinding]),
-        json(),
-        EditorState.tabSize.of(2)
-    ];
-
-    const reqJSON = new EditorView({
-        state: EditorState.create({
-            doc: "{\n\t\n}",
-            extensions: extensions
-        }),
-        parent: jsonReqBody
-    });
-
-    const resJSON = new EditorView({
-        state: EditorState.create({
-            doc: "{}",
-            extensions: [...extensions, EditorView.editable.of(false)]
-        }),
-        parent: jsonResBody
-    });
-
-    function updateResponseJSONField(val) {
-        resJSON.dispatch({
-            changes: {
-                from: 0,
-                to: resJSON.state.doc.length,
-                insert: JSON.stringify(val, null, 2)
-            }
-        });
-    }
-
-    return { reqJSON, updateResponseJSONField };
-} */

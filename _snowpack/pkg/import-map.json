@@ -1,0 +1,6 @@
+{
+  "imports": {
+    "axios": "./axios.js",
+    "pretty-bytes": "./pretty-bytes.js"
+  }
+}

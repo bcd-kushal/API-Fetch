@@ -6,13 +6,6 @@
     <title>PostUncle</title>
     <link rel="stylesheet" href="./styles.css" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Jost&family=Roboto+Mono:wght@300&display=swap"
-      rel="stylesheet"
-    />
-
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
@@ -24,7 +17,12 @@
         <div>POSTUNCLE</div>
       </header>
 
-      <nav class="menubar"></nav>
+      <nav class="menubar">
+        <!-- light mode deprecated bcz code editor bg wasnt toggling :( -->
+        <!-- <div class="themeSwitcher">
+          <div>theme</div>
+        </div> -->
+      </nav>
 
       <button data-send-btn class="submitbtn">
         <div>SEND</div>
@@ -100,7 +98,7 @@
         </div>
 
         <div class="jsonWrapper">
-          <div data-json-field class="jsonField"></div>
+          <div id="editor"></div>
         </div>
       </article>
 
@@ -129,7 +127,11 @@
             </div>
             <div class="answerContainer">
               <div class="bodyAnsContainer">
-                <div data-res-body-field class="bodyAnswer"></div>
+                <div
+                  data-res-body-field
+                  id="responseEditor"
+                  class="bodyAnswer"
+                ></div>
               </div>
               <div class="headerAnsContainer">
                 <div class="headerAnswer"></div>
@@ -165,6 +167,10 @@
       </div>
     </template>
 
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.8/ace.js"
+    ></script>
     <script type="module" src="./script.js"></script>
   </body>
 </html>
