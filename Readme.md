@@ -1,5 +1,5 @@
 <h1>PostUncle</h1>
-> A simple take on the **PostMan** API testing software
+==> A simple take on the _PostMan_ API testing software
 
 ### How To Run -------------------------
 1. Download/zip the folder
