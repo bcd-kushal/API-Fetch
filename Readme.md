@@ -13,7 +13,9 @@ ___________________________________________________________________
 ### How To Run -------------------------
 1. Download/zip the folder
 
-2. Install the following dependencies after `npm init -y`:
+2. Pull the files from `./src/` folder into root `./`
+
+3. Install the following dependencies after `npm init -y`:
 
      a.  `npm i -D snowpack`: ESBuild bundler
    
@@ -21,7 +23,7 @@ ___________________________________________________________________
    
      c.  `npm i axios`: fetch() equivalent
    
-3. Run: `npm start`
+4. Run: `npm start`
 
 
 
@@ -33,4 +35,5 @@ ___________________________________________________________________
    
 ### Some points addressed ---------
 1. the `Dockerfile` exists because I was testing if I could dockerize this application (successfully failed)
-2. the `./unused_scripts` folder contains unused functions (theme changer, use of `@codemirror`) which I never integrated at the end because of a few minor bugs I couldnt fix myself 
+2. the `./unused_scripts` folder contains unused functions (theme changer, use of `@codemirror`) which I never integrated at the end because of a few minor bugs I couldnt fix myself
+3. the `back_script.ts` file was created to mirror and learn the TS config and environment better, which aided in the production of this application.
