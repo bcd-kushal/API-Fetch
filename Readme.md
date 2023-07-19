@@ -4,7 +4,7 @@
 ### How To Run -------------------------
 1. Download/zip the folder
 
-2. Install the following dependencies:
+2. Install the following dependencies after `npm init -y`:
 
      a.  `npm i -D snowpack`: ESBuild bundler
    
