@@ -1,11 +1,10 @@
-<h1>PostUncle</h1>
+<h1>API Fetch</h1>
 ==> A simple take on the _PostMan_ API testing software
 ==> An application that displays API request vitals and data (like PostMan)
 
-https://postuncle.netlify.app
-
+https://data-apifetch.netlify.app/
 ___________________________________________________________________
-![PostUncle](https://github.com/bcd-kushal/PostUncle/assets/96081625/4f668d4f-5d03-4c99-ad3e-e50faa2b1051)
+![API Fetch](https://github.com/bcd-kushal/PostUncle/assets/96081625/4f668d4f-5d03-4c99-ad3e-e50faa2b1051)
 
 
 - add json objects to the `Queries` tab and `Headers` tab as needed to make a respective https call
@@ -29,7 +28,7 @@ ___________________________________________________________________
 
 
 
-![PostUncle demonstration](https://github.com/bcd-kushal/PostUncle/assets/96081625/8a790b96-594f-49c3-998a-a9afc3604edb)
+![API Fetch demonstration](https://github.com/bcd-kushal/PostUncle/assets/96081625/8a790b96-594f-49c3-998a-a9afc3604edb)
 
 
    _____________________________________________________________________
