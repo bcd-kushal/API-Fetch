@@ -1,5 +1,5 @@
-import axios from "axios";
-import prettyBytes from "pretty-bytes";
+import axios from "./_snowpack/pkg/axios.js";
+import prettyBytes from "./_snowpack/pkg/pretty-bytes.js";
 
 /* import setEditor from "./codeEditor";
 import setResponseEditor from "./responseCodeEditor"; */
@@ -19,8 +19,8 @@ const query_tab = document.getElementsByClassName('queryParamsTab')[0];
 const headers_tab = document.getElementsByClassName('HeadersTab')[0];
 const json_tab = document.getElementsByClassName('JSONTab')[0];
 
-let hoverTabColor = "#3a3b3c";
-let TabColor = "#242526";
+let hoverTabColor = "#202020";
+let TabColor = "#121212";
 
 const sendBtn = document.querySelector('[data-send-btn]');
 
@@ -137,8 +137,8 @@ function toggleResponseTabs(num) {
 
     const bodyResponseTab = document.querySelector('[data-body-response-tab]');
     const headerResponseTab = document.querySelector('[data-header-response-tab]');
-    const hoverShade = '#3a3b3c';
-    const tabShade = '#242526';
+    const hoverShade = '#202020';
+    const tabShade = '#121212';
 
     bodyResponseTab.style.backgroundColor = (num === 1) ? hoverShade : tabShade;
     headerResponseTab.style.backgroundColor = (num === 2) ? hoverShade : tabShade;
@@ -216,9 +216,13 @@ sendBtn.addEventListener('click', () => {
     const params = toObjects(document.getElementsByClassName('keyValueField')[0]);
     const headers = toObjects(document.getElementsByClassName('keyValueField')[1]);
 
+    console.log("Headers is: ",headers)
+
+
     let json_data = {};
     try {
         json_data = JSON.parse(ace_editor.getValue() || null);
+        console.log("json data is = ", json_data);
     } catch {
         responseShow.style.display = "none";
         alert("JSON data is malformed.");
@@ -241,19 +245,21 @@ sendBtn.addEventListener('click', () => {
         return Promise.reject(endTime(e.response));
     })
 
-    //console.log(json_data);
+    
+    
 
     axios({
         url: requested_url,
         method: http_request_type,
         params: params,
         headers: headers,
-        data: json_data
+        data: JSON.stringify(json_data)
     })
         .then((res) => {
             //console.log(res);
             responseShow.style.display = "block";
 
+            console.table(params);
 
             statusbar.innerHTML = res.status || "429";
             if (statusbar.innerHTML == "429") {
@@ -318,4 +324,3 @@ function updateHeadersResponseField(header) {
         headerField.append(valField);
     });
 }
-
