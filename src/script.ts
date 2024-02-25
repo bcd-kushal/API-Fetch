@@ -1,18 +1,6 @@
 import axios from "./_snowpack/pkg/axios.js";
 import prettyBytes from "./_snowpack/pkg/pretty-bytes.js";
 
-/* import setEditor from "./codeEditor";
-import setResponseEditor from "./responseCodeEditor"; */
-
-//const { reqJSONField, resJSONField } = setEditor();
-//const { reqJSON } = setEditor();
-//const { updateResponseJSONField } = setResponseEditor();
-//import { Ace, InlineAutocomplete } from "ace-builds";
-//let isTrue = false;
-//let isSwitcherToggling = false;
-//console.log("1.", currentThemeJSONField);
-
-
 let currentThemeJSONField = "ace/theme/twilight";
 
 const query_tab = document.getElementsByClassName('queryParamsTab')[0];
