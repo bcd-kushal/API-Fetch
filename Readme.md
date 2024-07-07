@@ -41,6 +41,6 @@ An application that displays API request vitals and data
 
 This project is licensed under the MIT License - see the <a href=''>LICENSE</a> file for details.
 
-<hr>
+<hr> 
 
 © 2024 dev-kushalkumar
